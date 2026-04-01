@@ -31,9 +31,13 @@ user_input['OverTime'] = label_encoder.transform(
     user_input['OverTime']
 )
 
+# predict the attrition
 if st.button("Predict Attrition"):
     prediction = model.predict(user_input)
+    probability = model.predict_proba(user_input)[0][1]
+
     if prediction[0] == 1:
         st.error("The employee is likely to leave  the company.")
     else:
         st.success("The employee is likely to stay with the company.")
+    st.info(f"Prediction Probability:v{probability:.2f}")
